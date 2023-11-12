@@ -13,6 +13,8 @@ FROM base as runtime
 
 ENV NODE_ENV=production
 ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
+ENV DATABASE_URI=postgresql://postgres:postgres@localhost/payload
+ENV PAYLOAD_SECRET=e1057e0557c2f564cfd10ed7
 
 WORKDIR /home/node/app
 COPY package*.json  ./
