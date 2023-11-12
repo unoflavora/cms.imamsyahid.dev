@@ -6,8 +6,8 @@ WORKDIR /home/node/app
 COPY package*.json ./
 
 COPY . .
-RUN yarn install
-RUN yarn build
+RUN set NODE_ENV=development && npm install
+RUN npm run build
 
 FROM base as runtime
 
@@ -18,9 +18,8 @@ ENV PAYLOAD_SECRET=e1057e0557c2f564cfd10ed7
 
 WORKDIR /home/node/app
 COPY package*.json  ./
-COPY yarn.lock ./
 
-RUN yarn install --production
+RUN npm install --production
 COPY --from=builder /home/node/app/dist ./dist
 COPY --from=builder /home/node/app/build ./build
 
