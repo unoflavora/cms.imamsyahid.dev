@@ -24,5 +24,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+              build-args: |
+                "DATABASE_URI=${{ secrets.DATABASE_URI }}"
+                "PAYLOAD_SECRET=${{secrets.PAYLOAD_SECRET}}"
           push: true
           tags: imamsyahid/cms:latest
