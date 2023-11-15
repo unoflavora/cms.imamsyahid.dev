@@ -21,7 +21,7 @@ const start = async () => {
 
   // Add your own express routes here
 
-  const server = app.listen(3001, () => {
+  const server = app.listen(3002, () => {
     console.log("listening on http://localhost:" + 3001);
   });
 

@@ -1,28 +1,26 @@
-FROM node:18.8-alpine as base
-
-FROM base as builder
-
-WORKDIR /home/node/app
+FROM node:18.8-alpine as builder
+WORKDIR /app
 COPY package*.json ./
-
 COPY . .
-RUN set NODE_ENV=development && npm install
+RUN NODE_ENV=development npm install
 RUN npm run build
 
-FROM base as runtime
-
+FROM node:18.8-alpine as runtime
 ENV NODE_ENV=production
 ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
 ENV DATABASE_URI=postgresql://postgres:postgres@localhost/payload
 ENV PAYLOAD_SECRET=e1057e0557c2f564cfd10ed7
 
-WORKDIR /home/node/app
+WORKDIR /app
 COPY package*.json  ./
-
 RUN npm install --production
-COPY --from=builder /home/node/app/dist ./dist
-COPY --from=builder /home/node/app/build ./build
 
-EXPOSE 3000
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/node_modules ./node_modules
+VOLUME [ "/app/dist/" ]
+EXPOSE 3001
 
-CMD ["node", "dist/server.js"]
+RUN npm run payload migrate:create
+RUN npm run payload migrate
+CMD npm run serve

@@ -21,9 +21,9 @@ const Blogs: CollectionConfig = {
       required: true,
     },
     {
-      name: "headerImage", // required
-      type: "upload", // required
-      relationTo: "media", // required
+      name: "headerImage",
+      type: "upload",
+      relationTo: "media",
       required: true,
     },
     {

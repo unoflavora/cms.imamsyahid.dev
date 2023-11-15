@@ -22,24 +22,23 @@ const Projects: CollectionConfig = {
       unique: true,
     },
     {
-      name: "headerImage", // required
-      type: "upload", // required
-      relationTo: "media", // required
+      name: "headerImage",
+      type: "upload",
+      relationTo: "media",
       required: true,
     },
     {
-      name: "slider", // required
-      type: "array", // required
+      name: "slider",
+      type: "array",
       label: "Image Slider",
       minRows: 2,
       maxRows: 10,
-      interfaceName: "CardSlider", // optional
+      interfaceName: "CardSlider",
       labels: {
         singular: "Slide",
         plural: "Slides",
       },
       fields: [
-        // required
         {
           name: "title",
           type: "text",
