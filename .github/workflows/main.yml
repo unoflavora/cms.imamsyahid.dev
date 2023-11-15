@@ -22,10 +22,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v5
-        env:
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          CMS_API: ${{ secrets.CMS_API }}
         with:
           context: .
           push: true
-          tags: imamsyahid/dev:latest
+          tags: imamsyahid/cms:latest
