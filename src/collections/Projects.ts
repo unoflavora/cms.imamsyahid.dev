@@ -28,6 +28,31 @@ const Projects: CollectionConfig = {
       required: true,
     },
     {
+      name: "client",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "contribution",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "duration",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "year",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "description",
+      type: "text",
+      required: true,
+    },
+    {
       name: "slider",
       type: "array",
       label: "Image Slider",
@@ -84,7 +109,7 @@ const Projects: CollectionConfig = {
     afterOperation: [
       async (args) => {
         var res = await fetch(
-          "https://www.imamsyahid.dev/api/revalidate?tag=projects",
+          process.env.WEB_URI + "/api/revalidate?tag=projects",
           { method: "GET" }
         );
         var data = await res.json();

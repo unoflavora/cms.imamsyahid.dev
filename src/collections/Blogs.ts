@@ -55,7 +55,7 @@ const Blogs: CollectionConfig = {
     afterOperation: [
       async (args) => {
         var res = await fetch(
-          "https://www.imamsyahid.dev/api/revalidate?tag=blogs",
+          process.env.WEB_URI + "/api/revalidate?tag=blogs",
           { method: "GET" }
         );
         var data = await res.json();

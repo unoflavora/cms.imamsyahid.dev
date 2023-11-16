@@ -17,4 +17,4 @@ COPY --from=builder /app/node_modules ./node_modules
 VOLUME [ "/app/dist/" ]
 EXPOSE 3001
 
-CMD npm run payload migrate:create; npm run payload migrate; npm run serve
+CMD npm run payload migrate; npm run serve
