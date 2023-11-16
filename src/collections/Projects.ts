@@ -81,6 +81,17 @@ const Projects: CollectionConfig = {
         return { ...data, slug: parseSlug(data["title"]) };
       },
     ],
+    afterOperation: [
+      async (args) => {
+        var res = await fetch(
+          "https://www.imamsyahid.dev/api/revalidate?tag=projects",
+          { method: "GET" }
+        );
+        var data = await res.json();
+        console.log(data);
+        return args.result;
+      },
+    ],
   },
 };
 

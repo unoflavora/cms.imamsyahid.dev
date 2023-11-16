@@ -1,7 +1,7 @@
 import express from "express";
 import payload from "payload";
+import "dotenv/config";
 
-require("dotenv").config();
 const app = express();
 
 // Redirect root to Admin panel
@@ -11,24 +11,29 @@ app.get("/", (_, res) => {
 
 const start = async () => {
   // Initialize Payload
-  await payload.init({
-    secret: process.env.PAYLOAD_SECRET,
-    express: app,
-    onInit: async () => {
-      payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
-    },
-  });
+  try {
+    await payload.init({
+      secret: process.env.PAYLOAD_SECRET,
+      express: app,
+      onInit: async () => {
+        payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
+      },
+    });
 
-  // Add your own express routes here
+    // Add your own express routes here
 
-  const server = app.listen(3002, () => {
-    console.log("listening on http://localhost:" + 3001);
-  });
+    const server = app.listen(3001, () => {
+      console.log("listening on http://localhost:" + 3001);
+    });
 
-  process.on("SIGINT", () => {
-    server.close();
+    process.on("SIGINT", () => {
+      server.close();
+      process.exit();
+    });
+  } catch (e) {
+    console.log(e);
     process.exit();
-  });
+  }
 };
 
 start();
