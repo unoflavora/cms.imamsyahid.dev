@@ -14,7 +14,7 @@ RUN npm install --production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/src/migration ./app/src/migration
+COPY --from=builder /app/src/migrations ./app/src/migrations
 EXPOSE 3001
 
 CMD npm run payload migrate:create; npm run payload migrate; npm run serve
