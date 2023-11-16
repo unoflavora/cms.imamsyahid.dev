@@ -8,7 +8,7 @@ RUN npm run build
 FROM node:18.8-alpine as runtime
 ENV NODE_ENV=production
 ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
-WORKDIR /app
+WORKDIR /
 COPY package*.json  ./
 RUN npm install --production
 COPY --from=builder /app/dist ./dist
