@@ -7,29 +7,28 @@ services:
     volumes:
       - dbdata:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER: postgres
-      - POSTGRES_PASWORD: postgres
-      - POSTGRES_DB: payload
-    networks:
-      - cms-network
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=payload
 
   cms:
-    build: .
+    build:
+      context: ../
+      dockerfile: .devcontainer/Dockerfile
     restart: always
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URI=postgresql://postgres:postgres@postgres:5432/payload
+      - DATABASE_URI=postgres://postgres:postgres@postgres:5432/payload
       - PAYLOAD_SECRET=e1057e0557c2f564cfd10ed7
       - PAYLOAD_CONFIG_PATH=src/payload.config.ts
-      - WEB_URI=http://localhost:3000
+      - WEB_URI=http://imamsyahid.dev_dev:3000
     depends_on:
       - postgres
     volumes:
-      - .:/app/src
-    networks:
-      - cms-network
-      - bridge
+      - ~/projects/personal-web/cms:/usr/app:cached
+      - ./projects/personal-web/data:/data:cached
+      - ~/.ssh:/root/.ssh
 
 volumes:
   dbdata:

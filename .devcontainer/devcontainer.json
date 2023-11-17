@@ -2,11 +2,10 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/alpine
 {
   "name": "imamsyahid.dev",
-  "build": {
-    "context": "..",
-    "dockerfile": "Dockerfile"
-  },
-  "forwardPorts": [3000, 3001],
+  "dockerComposeFile": "compose.devcontainer.yml",
+  "service": "cms",
+  "workspaceFolder": "/usr/app",
+  "forwardPorts": [3001],
   "customizations": {
     "vscode": {
       "extensions": ["esbenp.prettier-vscode"]

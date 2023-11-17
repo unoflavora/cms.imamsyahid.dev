@@ -4,7 +4,7 @@ import { payloadCloud } from "@payloadcms/plugin-cloud";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { slateEditor } from "@payloadcms/richtext-slate";
 import { buildConfig } from "payload/config";
-import {mongooseAdapter} from "@payloadcms/db-mongodb";
+import { postgresAdapter } from "@payloadcms/db-postgres";
 
 import Users from "./collections/Users";
 import Blogs from "./collections/Blogs";
@@ -25,7 +25,11 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
   },
   plugins: [payloadCloud()],
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URI,
+  db: postgresAdapter({
+    // Postgres-specific arguments go here.
+    // `pool` is required.
+    pool: {
+      connectionString: process.env.DATABASE_URI,
+    },
   }),
 });
