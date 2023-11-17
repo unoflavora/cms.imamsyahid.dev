@@ -1,6 +1,7 @@
 FROM node:lts-alpine3.18 as builder
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN apk add --update git
+RUN apk add openssh
 
 WORKDIR /usr/app
 COPY package*.json .
