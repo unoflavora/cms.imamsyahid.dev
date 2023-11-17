@@ -1,47 +1,36 @@
 version: "3.8"
 
 services:
-  mongodb:
+  postgres:
     image: postgres:14-alpine
     restart: always
-    ports:
-      - "5432:5432"
     volumes:
       - dbdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER: postgres
+      - POSTGRES_PASWORD: postgres
+      - POSTGRES_DB: payload
     networks:
       - cms-network
 
   cms:
-    image: cmsimamsyahiddev_devcontainer-cms:latest
+    build: .
     restart: always
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URI=mongodb://mongodb:27017/payload
+      - DATABASE_URI=postgresql://postgres:postgres@postgres:5432/payload
       - PAYLOAD_SECRET=e1057e0557c2f564cfd10ed7
       - PAYLOAD_CONFIG_PATH=src/payload.config.ts
       - WEB_URI=http://localhost:3000
     depends_on:
-      - mongodb
+      - postgres
     volumes:
       - .:/app/src
     networks:
       - cms-network
+      - bridge
 
-  web:
-    image: imamsyahid/dev:latest
-    restart: always
-    ports:
-      - "3000:3000"
-    depends_on:
-      - cms
-    networks:
-      - cms-network
-    environment:
-      - DATABASE_URI=postgresql://postgres:postgres@localhost:27017/payload
-      - PAYLOAD_SECRET=e1057e0557c2f564cfd10ed7
-      - PAYLOAD_CONFIG_PATH=src/payload.config.ts
-      
 volumes:
   dbdata:
     driver: local
