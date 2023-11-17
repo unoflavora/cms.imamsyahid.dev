@@ -54,12 +54,16 @@ const Blogs: CollectionConfig = {
     ],
     afterOperation: [
       async (args) => {
-        var res = await fetch(
-          process.env.WEB_URI + "/api/revalidate?tag=blogs",
-          { method: "GET" }
-        );
-        var data = await res.json();
-        console.log(data);
+        try {
+          var res = await fetch(
+            process.env.WEB_URI + "/api/revalidate?tag=blogs",
+            { method: "GET" }
+          );
+          var data = await res.json();
+          console.log(data);
+        } catch (e) {
+          console.log(e);
+        }
         return args.result;
       },
     ],
