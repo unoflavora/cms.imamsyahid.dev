@@ -15,7 +15,6 @@ services:
     build:
       context: ../
       dockerfile: .devcontainer/Dockerfile
-    restart: always
     ports:
       - "3001:3001"
     environment:
@@ -26,8 +25,6 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ~/projects/personal-web/cms:/usr/app:cached
-      - ./projects/personal-web/data:/data:cached
       - ~/.ssh:/root/.ssh
 
 volumes:
