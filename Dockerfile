@@ -17,4 +17,4 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src/migrations ./app/src/migrations
 EXPOSE 3001
 
-CMD npm run payload migrate:create; npm run payload migrate; npm run serve
+CMD ["/bin/sh", "-c", "npm run payload migrate:create; npm run payload migrate; npm run serve"]
