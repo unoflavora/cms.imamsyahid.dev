@@ -14,6 +14,7 @@ RUN npm install --production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/src/migrations ./src/migrations
 EXPOSE 3001
 
 RUN cd /usr/app

@@ -16,6 +16,7 @@ const start = async () => {
       secret: process.env.PAYLOAD_SECRET,
       express: app,
       onInit: async () => {
+        console.info("PAYLOAD MIGRATIONS DIR", payload.db.migrationDir)
         payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
       },
     });
@@ -23,7 +24,7 @@ const start = async () => {
     // Add your own express routes here
 
     const server = app.listen(3001, () => {
-      console.log("listening on http://localhost:" + 3001);
+      console.log("listening on http://localhost:" + 3002);
     });
 
     process.on("SIGINT", () => {
