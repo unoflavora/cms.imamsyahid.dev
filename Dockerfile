@@ -18,4 +18,4 @@ EXPOSE 3001
 
 RUN cd /usr/app
 ENTRYPOINT [ "/bin/sh", "-c" ]
-CMD ["npm run serve"]
+CMD ["npm run payload migrate; npm run serve"]
