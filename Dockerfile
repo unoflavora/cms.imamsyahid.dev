@@ -17,5 +17,6 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src/migrations ./app/src/migrations
 EXPOSE 3001
 
+RUN cd /usr/app
 ENTRYPOINT [ "/bin/sh", "-c" ]
 CMD ["npm run payload migrate:create; npm run payload migrate; npm run serve"]
