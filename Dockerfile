@@ -1,14 +1,14 @@
 FROM node:18.8-alpine as builder
 WORKDIR /app
 COPY package*.json ./
-COPY . .
 RUN NODE_ENV=development npm install
+COPY . .
 RUN npm run build
 
 FROM node:18.8-alpine as runtime
 ENV NODE_ENV=production
 ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
-WORKDIR /
+WORKDIR /usr/app
 COPY package*.json  ./
 RUN npm install --production
 COPY --from=builder /app/dist ./dist
@@ -17,4 +17,5 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src/migrations ./app/src/migrations
 EXPOSE 3001
 
-CMD ["/bin/sh", "-c", "npm run payload migrate:create; npm run payload migrate; npm run serve"]
+ENTRYPOINT [ "/bin/sh", "-c" ]
+CMD ["npm run payload migrate:create; npm run payload migrate; npm run serve"]
