@@ -65,18 +65,10 @@ const Projects: CollectionConfig = {
       },
       fields: [
         {
-          name: "title",
-          type: "text",
-        },
-        {
           name: "image",
           type: "upload",
           relationTo: "media",
           required: true,
-        },
-        {
-          name: "caption",
-          type: "text",
         },
       ],
     },
@@ -106,7 +98,7 @@ const Projects: CollectionConfig = {
         return { ...data, slug: parseSlug(data["title"]) };
       },
     ],
-    afterOperation: [
+    afterChange: [
       async (args) => {
         try {
           var res = await fetch(
@@ -118,7 +110,7 @@ const Projects: CollectionConfig = {
         } catch (e) {
           console.log(e);
         }
-        return args.result;
+        return args.doc;
       },
     ],
   },

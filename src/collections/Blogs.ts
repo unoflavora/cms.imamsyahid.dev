@@ -52,7 +52,7 @@ const Blogs: CollectionConfig = {
         return { ...data, slug: parseSlug(data["title"]) };
       },
     ],
-    afterOperation: [
+    afterChange: [
       async (args) => {
         try {
           var res = await fetch(
@@ -64,7 +64,7 @@ const Blogs: CollectionConfig = {
         } catch (e) {
           console.log(e);
         }
-        return args.result;
+        return args.doc;
       },
     ],
   },
