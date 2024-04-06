@@ -3,6 +3,9 @@ import { parseSlug } from "../lib/parseSlug";
 
 const Projects: CollectionConfig = {
   slug: "projects",
+  versions: {
+    drafts: true,
+  },
   fields: [
     {
       name: "title",
