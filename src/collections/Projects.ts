@@ -14,6 +14,11 @@ const Projects: CollectionConfig = {
       unique: true,
     },
     {
+      name: "order",
+      type: "number",
+      required: true,
+    },
+    {
       name: "category",
       type: "text",
       required: true,
